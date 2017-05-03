@@ -28,8 +28,6 @@ def run_tests(url):
     # Test 1: GET query
     test1 = requests.get(url)
     print test1.content
-    test2 = requests.post(url, "vlad")
-    print test2
 
 def main():
     args = get_args()
