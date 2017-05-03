@@ -26,7 +26,9 @@ npm start
 
 ### To access the server:
 
+```
 curl localhost:8080
+```
 
 Example:
 
