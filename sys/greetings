@@ -8,39 +8,37 @@
 # Description:       <DESCRIPTION>
 ### END INIT INFO
 
-SCRIPT=/opt/greetings_src/sys/start.sh
+SCRIPT="cd /opt/greetings_src && npm start"
+PID=$(ps -ef | grep npm | grep -v grep | awk '{print $2}')
 RUNAS=root
 
-PIDFILE=/var/run/greetings.pid
 LOGFILE=/var/log/greetings.log
 
 start() {
-  if [ -f /var/run/$PIDNAME ] && kill -0 $(cat /var/run/$PIDNAME); then
-    echo 'Service already running' >&2
-    return 1
+  if [ -z "$PID" ]; then
+    echo 'Starting Greetings API' >&2
+    local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
+    su -c "$CMD" $RUNAS > "$PIDFILE"
+    echo 'Greetings API started' >&2
+  else
+    echo "Greetings API already running"
   fi
-  echo 'Starting service…' >&2
-  local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
-  su -c "$CMD" $RUNAS > "$PIDFILE"
-  echo 'Service started' >&2
 }
 
 stop() {
-  if [ ! -f "$PIDFILE" ] || ! kill -0 $(cat "$PIDFILE"); then
-    echo 'Service not running' >&2
-    return 1
+  if [ -z "$PID" ]; then
+    echo "Greetings API not running"
+  else
+    echo "Stopping Greetings API"
+    kill -9 ${PID}
   fi
-  echo 'Stopping service…' >&2
-  kill -15 $(cat "$PIDFILE") && rm -f "$PIDFILE"
-  echo 'Service stopped' >&2
 }
 
 status() {
-  PID=$(ps -ef | grep node | grep -v grep)
   if [ -z "$PID" ]; then
-    echo "Greetings API running with PID $PID"
-  else
     echo "Greetings API not running"
+  else
+    echo "Greetings API running with PID $PID"
   fi
 }
 
