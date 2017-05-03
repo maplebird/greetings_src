@@ -32,6 +32,7 @@ curl localhost:8080
 
 Example:
 
-```vlad@Macbook greetings_ci (master) $ curl localhost:8080
+```
+vlad@Macbook greetings_ci (master) $ curl localhost:8080
 {"content":"Hello, World!"}
 ```
