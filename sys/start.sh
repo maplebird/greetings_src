@@ -1,5 +1,5 @@
 #!/bin/bash
 
-/opt/greetings_ci
+cd /opt/greetings_ci
 
 npm start &
