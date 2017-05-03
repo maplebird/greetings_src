@@ -3,7 +3,7 @@
 
 ### Source code: 
 
-Grabbed source code from this tutorial:
+Grabbed node source code from this tutorial:
 https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
 
 Slightly modified to fit my needs
@@ -36,3 +36,29 @@ Example:
 vlad@Macbook greetings_ci (master) $ curl localhost:8080
 {"content":"Hello, World!"}
 ```
+
+### Unit tests
+
+Need Python with requests, json, sys, argparse modules installed
+
+To run unit tests, build project as normal and start the server
+
+Then run unittest/tests.py with localhost and against port 8080.
+
+Example:
+
+```
+cd unittest
+python tests.py -u localhost -p 8080
+
+```
+
+Sample output:
+
+```
+vlad@Macbook unittest (master) $ python tests.py -u localhost -p 8080
+Test 1 successful, server is up
+Test 2 successful, GET returns Hello, World!
+2 out of 2 tests were successful.
+```
+
