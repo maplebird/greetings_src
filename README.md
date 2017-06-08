@@ -1,5 +1,8 @@
 # greetings_src
 
+Source code for Greetings microservice
+
+This is a proof of concept/exercise to see how much of a deployment pipeline I could create in about 4-6 hours.
 
 ### Source code: 
 
@@ -39,7 +42,7 @@ vlad@Macbook greetings_ci (master) $ curl localhost:8080
 
 ### Unit tests
 
-Need Python with requests, json, sys, argparse modules installed
+Need Python 2.7 with argparse module installed
 
 To run unit tests, build project as normal and start the server
 
@@ -50,7 +53,6 @@ Example:
 ```
 cd unittest
 python tests.py -u localhost -p 8080
-
 ```
 
 Sample output:
@@ -62,3 +64,15 @@ Test 2 successful, GET returns Hello, World!
 2 out of 2 tests were successful.
 ```
 
+### Init.d script
+
+If you're running an init.d compatible system (i.e. Linux), you can run it as a service.
+
+Copy sys/greetings to /etc/init.d to /etc/rc.d/init.d/ and start/stop via service:
+
+```
+sudo cp sys/greetings /etc/rc.d/init.d/
+service greetings start
+```
+
+This service is deployed automatically on node bootstrap/installation via greetings_ci project.
